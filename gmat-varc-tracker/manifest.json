@@ -1,0 +1,17 @@
+{
+  "name": "GMAT VARC Daily Tracker",
+  "short_name": "GMAT VARC",
+  "description": "Track GMAT VARC questions with per-question timers and daily study reminders",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

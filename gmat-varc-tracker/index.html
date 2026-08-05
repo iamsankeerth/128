@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="GMAT VARC daily question tracker with per-question timers and study reminders" />
+  <title>GMAT VARC Daily Tracker</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">G</div>
+        <div>
+          <h1>GMAT VARC Tracker</h1>
+          <p class="subtitle">Official Guide 2024–2025 · Aug 2026 Plan</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="reminderBtn" class="btn btn-ghost" type="button" aria-label="Reminder settings">
+          <span class="icon">🔔</span>
+          <span class="btn-label">Reminders</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="stats-bar" id="statsBar">
+      <div class="stat-card">
+        <span class="stat-label">Today</span>
+        <span class="stat-value" id="statTodayDone">0/0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Time Today</span>
+        <span class="stat-value mono" id="statTodayTime">00:00</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Overall</span>
+        <span class="stat-value" id="statOverall">0/346</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Streak</span>
+        <span class="stat-value" id="statStreak">0 days</span>
+      </div>
+    </section>
+
+    <section class="day-selector">
+      <button id="prevDay" class="nav-btn" type="button" aria-label="Previous day">‹</button>
+      <div class="day-info">
+        <input type="date" id="datePicker" class="date-input" />
+        <div class="day-meta">
+          <h2 id="dayTitle">Loading…</h2>
+          <p id="daySummary"></p>
+        </div>
+      </div>
+      <button id="nextDay" class="nav-btn" type="button" aria-label="Next day">›</button>
+      <button id="todayBtn" class="btn btn-secondary" type="button">Today</button>
+    </section>
+
+    <div class="progress-wrap">
+      <div class="progress-bar">
+        <div class="progress-fill" id="dayProgress"></div>
+      </div>
+      <span class="progress-text" id="progressText">0% complete</span>
+    </div>
+
+    <main id="questionList" class="question-list"></main>
+
+    <footer class="footer">
+      <p>Open questions in your GMAT Official Guide PDF using the page numbers shown.</p>
+      <p class="muted">Progress is saved locally in your browser.</p>
+    </footer>
+  </div>
+
+  <dialog id="reminderDialog" class="dialog">
+    <form method="dialog" id="reminderForm">
+      <h3>Daily Study Reminder</h3>
+      <p class="dialog-desc">Get a browser notification each day to complete your assigned questions.</p>
+
+      <label class="field">
+        <span>Reminder time</span>
+        <input type="time" id="reminderTime" value="08:00" />
+      </label>
+
+      <label class="checkbox-field">
+        <input type="checkbox" id="reminderEnabled" />
+        <span>Enable daily reminders</span>
+      </label>
+
+      <p id="reminderStatus" class="reminder-status"></p>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-ghost" id="testReminder">Test notification</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
