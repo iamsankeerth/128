@@ -1,4 +1,4 @@
-const CACHE = 'gmat-varc-v4';
+const CACHE = 'gmat-varc-v5';
 
 const PRECACHE = [
   './',
@@ -12,6 +12,12 @@ const PRECACHE = [
 ];
 
 const NETWORK_FIRST = ['.json', 'app.js', 'styles.css', 'index.html'];
+
+function cacheKey(url) {
+  const u = new URL(url);
+  u.search = '';
+  return u.href;
+}
 
 function isNetworkFirst(url) {
   return NETWORK_FIRST.some((suffix) => url.pathname.endsWith(suffix) || url.pathname.endsWith(`/${suffix}`));
@@ -43,17 +49,17 @@ self.addEventListener('fetch', (event) => {
         .then((response) => {
           if (response && response.status === 200) {
             const copy = response.clone();
-            caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+            caches.open(CACHE).then((cache) => cache.put(cacheKey(event.request.url), copy));
           }
           return response;
         })
-        .catch(() => caches.match(event.request))
+        .catch(() => caches.match(cacheKey(event.request.url)))
     );
     return;
   }
 
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    caches.match(cacheKey(event.request.url)).then((cached) => cached || fetch(event.request))
   );
 });
 

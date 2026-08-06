@@ -44,7 +44,11 @@ function loadProgress() {
 }
 
 function saveProgress() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
+  } catch (err) {
+    console.warn('Could not save progress to localStorage', err);
+  }
 }
 
 function loadReminder() {
@@ -176,8 +180,17 @@ function renderDay(date) {
 
   const cards = day.questionNumbers.map((no) => renderQuestionCard(no)).join('');
   els.questionList.innerHTML = cards;
-  bindQuestionEvents();
   renderStats(date);
+}
+
+function refreshQuestionCard(no) {
+  const existing = els.questionList.querySelector(`.question-card[data-q="${no}"]`);
+  if (!existing) return;
+  const html = renderQuestionCard(no);
+  const wrap = document.createElement('div');
+  wrap.innerHTML = html.trim();
+  const newCard = wrap.firstElementChild;
+  if (newCard) existing.replaceWith(newCard);
 }
 
 function escapeHtml(text) {
@@ -224,7 +237,8 @@ function formatQuestionBody(q, no, progress) {
         if (selected && selected === letter && letter !== correct) stateClass += ' wrong';
         return (
           `<li>` +
-          `<button type="button" class="option-btn ${stateClass.trim()}" data-action="select" data-q="${no}" data-letter="${letter}" aria-pressed="${selected === letter}">` +
+          `<button type="button" class="option-btn ${stateClass.trim()}" data-action="select" data-q="${no}" data-letter="${letter}" aria-pressed="${selected === letter}" aria-label="Answer ${letter}">` +
+          `<span class="opt-radio" aria-hidden="true"></span>` +
           `<span class="opt-letter">${letter}.</span>` +
           `<span class="opt-text">${escapeHtml(options[letter])}</span>` +
           `</button>` +
@@ -324,30 +338,40 @@ function resetTimer(questionNo) {
 }
 
 function selectAnswer(questionNo, letter) {
-  const q = state.questions[String(questionNo)];
+  const q = state.questions[String(questionNo)] || state.questions[questionNo];
   if (!q || !letter) return;
   const result = letter === q.correctAnswer ? 'correct' : 'incorrect';
   setQuestionProgress(questionNo, { selectedAnswer: letter, result });
-  renderDay(state.selectedDate);
+  refreshQuestionCard(questionNo);
+  const card = els.questionList.querySelector(`.question-card[data-q="${questionNo}"]`);
+  const feedback = card?.querySelector('.answer-result');
+  if (feedback) feedback.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  renderStats(state.selectedDate);
 }
 
 function toggleComplete(questionNo) {
   const p = getQuestionProgress(questionNo);
   if (state.activeTimer?.questionNo === questionNo) stopActiveTimer(true);
   setQuestionProgress(questionNo, { completed: !p.completed });
-  renderDay(state.selectedDate);
+  refreshQuestionCard(questionNo);
+  renderStats(state.selectedDate);
+}
+
+function handleQuestionAction(btn) {
+  const no = Number(btn.dataset.q);
+  const action = btn.dataset.action;
+  if (!no || !action) return;
+  if (action === 'start') startTimer(no);
+  if (action === 'reset') resetTimer(no);
+  if (action === 'complete') toggleComplete(no);
+  if (action === 'select') selectAnswer(no, btn.dataset.letter);
 }
 
 function bindQuestionEvents() {
-  els.questionList.querySelectorAll('[data-action]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const no = Number(btn.dataset.q);
-      const action = btn.dataset.action;
-      if (action === 'start') startTimer(no);
-      if (action === 'reset') resetTimer(no);
-      if (action === 'complete') toggleComplete(no);
-      if (action === 'select') selectAnswer(no, btn.dataset.letter);
-    });
+  els.questionList.addEventListener('click', (event) => {
+    const btn = event.target.closest('[data-action]');
+    if (!btn || !els.questionList.contains(btn)) return;
+    handleQuestionAction(btn);
   });
 }
 
@@ -377,7 +401,7 @@ async function requestNotificationPermission() {
 async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return null;
   try {
-    const reg = await navigator.serviceWorker.register('./sw.js?v=4');
+    const reg = await navigator.serviceWorker.register('./sw.js?v=5');
     if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
     return reg;
   } catch (err) {
@@ -432,8 +456,8 @@ function openReminderDialog() {
 
 async function init() {
   const [questionsRes, planRes] = await Promise.all([
-    fetch('./data/questions.json?v=4'),
-    fetch('./data/daily-plan.json?v=4'),
+    fetch('./data/questions.json?v=5'),
+    fetch('./data/daily-plan.json?v=5'),
   ]);
 
   if (!questionsRes.ok || !planRes.ok) {
@@ -452,6 +476,7 @@ async function init() {
   els.datePicker.max = state.dailyPlan.days.at(-1)?.date;
 
   els.datePicker.addEventListener('change', (e) => renderDay(e.target.value));
+  bindQuestionEvents();
   els.prevDay.addEventListener('click', () => shiftDate(-1));
   els.nextDay.addEventListener('click', () => shiftDate(1));
   els.todayBtn.addEventListener('click', () => renderDay(getDefaultDate()));

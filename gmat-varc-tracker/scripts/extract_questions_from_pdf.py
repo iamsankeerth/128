@@ -8,7 +8,7 @@ from pathlib import Path
 
 from pypdf import PdfReader
 
-from text_cleanup import clean_option_text, clean_question_text, clean_stem_text
+from text_cleanup import clean_option_text, clean_question_text, clean_stem_text, trim_option_bleed
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -112,8 +112,8 @@ def parse_options(block: str) -> tuple[str, dict[str, str]]:
         letter = match.group(1)
         start = match.end()
         end = opt_matches[i + 1].start() if i + 1 < len(opt_matches) else len(block)
-        option_text = block[start:end].strip()
-        option_text = trim_question_block(option_text)
+        option_text = trim_question_block(block[start:end].strip())
+        option_text = trim_option_bleed(option_text)
         options[letter] = option_text
     return stem, options
 

@@ -61,9 +61,26 @@ def clean_question_text(text: str) -> str:
     return reflow_paragraphs(text)
 
 
+_OPTION_BLEED = re.compile(
+    r"\s+(?:Line\s*(?:\(\d+\)\s*)+|Questions[\s\t]+\d{3}[\s\t]+refer)",
+    re.IGNORECASE,
+)
+
+
+def trim_option_bleed(text: str) -> str:
+    """Drop passage text accidentally merged into the last answer choice."""
+    if not text:
+        return ""
+    match = _OPTION_BLEED.search(text)
+    if match:
+        text = text[:match.start()]
+    return text.strip()
+
+
 def clean_option_text(text: str) -> str:
     text = fix_pdf_encoding(text)
     text = re.sub(r"\s*\n\s*", " ", text)
+    text = trim_option_bleed(text)
     return re.sub(r" +", " ", text).strip()
 
 
