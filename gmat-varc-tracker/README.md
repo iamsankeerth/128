@@ -37,3 +37,29 @@ python3 scripts/generate_data.py
 3. Allow browser notifications when prompted
 
 Reminders fire once per day while the tab is open, or via the service worker when installed as a PWA.
+
+## Deploy to Vercel
+
+### Option A: Vercel Dashboard (easiest)
+
+1. Go to [vercel.com/new](https://vercel.com/new)
+2. Import the GitHub repo `iamsankeerth/128`
+3. Set **Root Directory** to `gmat-varc-tracker`
+4. Click **Deploy** (no build command needed — static site)
+
+### Option B: Vercel CLI
+
+```bash
+cd gmat-varc-tracker
+npx vercel --prod
+```
+
+### Option C: GitHub Actions (auto-deploy on push)
+
+Add these repository secrets in GitHub → Settings → Secrets:
+
+- `VERCEL_TOKEN` — from [vercel.com/account/tokens](https://vercel.com/account/tokens)
+- `VERCEL_ORG_ID` — from Vercel project settings
+- `VERCEL_PROJECT_ID` — from Vercel project settings
+
+Pushes to `master` that change `gmat-varc-tracker/` will deploy automatically.
