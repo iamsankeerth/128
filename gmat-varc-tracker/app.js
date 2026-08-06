@@ -60,7 +60,13 @@ function saveReminder() {
 }
 
 function getQuestionProgress(no) {
-  return state.progress.questions[String(no)] || { elapsedMs: 0, completed: false, lastUpdated: null };
+  return state.progress.questions[String(no)] || {
+    elapsedMs: 0,
+    completed: false,
+    selectedAnswer: null,
+    result: null,
+    lastUpdated: null,
+  };
 }
 
 function setQuestionProgress(no, data) {
@@ -183,7 +189,7 @@ function escapeHtml(text) {
     .replace(/"/g, '&quot;');
 }
 
-function formatQuestionBody(q) {
+function formatQuestionBody(q, no, progress) {
   const parts = [];
 
   if (q.passage) {
@@ -206,11 +212,35 @@ function formatQuestionBody(q) {
 
   const options = q.options || {};
   const letters = ['A', 'B', 'C', 'D', 'E'].filter((letter) => options[letter]);
+  const selected = progress.selectedAnswer;
+  const correct = q.correctAnswer;
+
   if (letters.length) {
     const items = letters
-      .map((letter) => `<li><span class="opt-letter">${letter}.</span><span class="opt-text">${escapeHtml(options[letter])}</span></li>`)
+      .map((letter) => {
+        let stateClass = '';
+        if (selected === letter) stateClass = 'selected';
+        if (selected && letter === correct) stateClass += ' correct';
+        if (selected && selected === letter && letter !== correct) stateClass += ' wrong';
+        return (
+          `<li>` +
+          `<button type="button" class="option-btn ${stateClass.trim()}" data-action="select" data-q="${no}" data-letter="${letter}" aria-pressed="${selected === letter}">` +
+          `<span class="opt-letter">${letter}.</span>` +
+          `<span class="opt-text">${escapeHtml(options[letter])}</span>` +
+          `</button>` +
+          `</li>`
+        );
+      })
       .join('');
-    parts.push(`<div class="content-label options-label">Answer choices</div><ol class="question-options">${items}</ol>`);
+    parts.push(`<div class="content-label options-label">Answer choices — tap to select</div><ol class="question-options">${items}</ol>`);
+    if (selected) {
+      const isCorrect = selected === correct;
+      parts.push(
+        `<p class="answer-result ${isCorrect ? 'result-correct' : 'result-wrong'}">` +
+          `${isCorrect ? '✓ Correct' : `✗ Incorrect — correct answer is ${correct}`}` +
+        `</p>`
+      );
+    }
   } else if (!q.stem && q.fullText) {
     parts.push(`<div class="question-stem">${escapeHtml(q.fullText)}</div>`);
   }
@@ -223,7 +253,7 @@ function formatQuestionBody(q) {
 }
 
 function renderQuestionCard(no) {
-  const q = state.questions[no];
+  const q = state.questions[String(no)] || state.questions[no];
   const p = getQuestionProgress(no);
   const running = state.activeTimer?.questionNo === no;
   const elapsed = running ? p.elapsedMs + (Date.now() - state.activeTimer.startedAt) : p.elapsedMs;
@@ -251,7 +281,7 @@ function renderQuestionCard(no) {
         · PDF p. ${q.pdfPage}
         ${q.explanationPage ? ` · Explanation p. ${q.explanationPage}` : ''}
       </p>
-      <div class="question-body">${formatQuestionBody(q)}</div>
+      <div class="question-body">${formatQuestionBody(q, no, p)}</div>
       <div class="timer-row">
         <div class="timer-display ${running ? 'running' : ''} ${p.completed ? 'done' : ''}" data-timer-display="${no}">${formatMs(elapsed)}</div>
         <button class="btn btn-primary btn-sm timer-start" data-action="start" data-q="${no}" type="button">${running ? 'Pause' : p.elapsedMs ? 'Resume' : 'Start'}</button>
@@ -284,7 +314,20 @@ function startTimer(questionNo) {
 
 function resetTimer(questionNo) {
   if (state.activeTimer?.questionNo === questionNo) state.activeTimer = null;
-  setQuestionProgress(questionNo, { elapsedMs: 0, completed: false });
+  setQuestionProgress(questionNo, {
+    elapsedMs: 0,
+    completed: false,
+    selectedAnswer: null,
+    result: null,
+  });
+  renderDay(state.selectedDate);
+}
+
+function selectAnswer(questionNo, letter) {
+  const q = state.questions[String(questionNo)];
+  if (!q || !letter) return;
+  const result = letter === q.correctAnswer ? 'correct' : 'incorrect';
+  setQuestionProgress(questionNo, { selectedAnswer: letter, result });
   renderDay(state.selectedDate);
 }
 
@@ -303,6 +346,7 @@ function bindQuestionEvents() {
       if (action === 'start') startTimer(no);
       if (action === 'reset') resetTimer(no);
       if (action === 'complete') toggleComplete(no);
+      if (action === 'select') selectAnswer(no, btn.dataset.letter);
     });
   });
 }
@@ -333,7 +377,7 @@ async function requestNotificationPermission() {
 async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return null;
   try {
-    const reg = await navigator.serviceWorker.register('./sw.js?v=3');
+    const reg = await navigator.serviceWorker.register('./sw.js?v=4');
     if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
     return reg;
   } catch (err) {
@@ -388,8 +432,8 @@ function openReminderDialog() {
 
 async function init() {
   const [questionsRes, planRes] = await Promise.all([
-    fetch('./data/questions.json?v=3'),
-    fetch('./data/daily-plan.json?v=3'),
+    fetch('./data/questions.json?v=4'),
+    fetch('./data/daily-plan.json?v=4'),
   ]);
 
   if (!questionsRes.ok || !planRes.ok) {

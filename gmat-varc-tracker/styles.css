@@ -320,15 +320,60 @@ body {
 }
 
 .question-options li {
+  list-style: none;
+}
+
+.option-btn {
+  width: 100%;
   display: flex;
   gap: 10px;
   align-items: flex-start;
   padding: 12px 14px;
   background: var(--surface-2);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: 10px;
   line-height: 1.55;
   font-size: 0.94rem;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.option-btn:active {
+  transform: scale(0.98);
+}
+
+.option-btn.selected {
+  border-color: var(--primary);
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.option-btn.correct {
+  border-color: var(--success);
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.option-btn.wrong {
+  border-color: var(--danger);
+  background: rgba(248, 113, 113, 0.12);
+}
+
+.answer-result {
+  margin: 10px 0 4px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.result-correct {
+  color: var(--success);
+}
+
+.result-wrong {
+  color: var(--danger);
 }
 
 .opt-letter {
