@@ -174,6 +174,44 @@ function renderDay(date) {
   renderStats(date);
 }
 
+function escapeHtml(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function formatQuestionBody(q) {
+  const parts = [];
+
+  if (q.passage) {
+    parts.push(`<div class="question-passage"><div class="content-label">Passage</div><div class="passage-text">${escapeHtml(q.passage)}</div></div>`);
+  }
+
+  if (q.stem) {
+    parts.push(`<div class="question-stem">${escapeHtml(q.stem)}</div>`);
+  }
+
+  const options = q.options || {};
+  const letters = ['A', 'B', 'C', 'D', 'E'].filter((letter) => options[letter]);
+  if (letters.length) {
+    const items = letters
+      .map((letter) => `<li><span class="opt-letter">${letter}.</span> ${escapeHtml(options[letter])}</li>`)
+      .join('');
+    parts.push(`<ol class="question-options">${items}</ol>`);
+  } else if (!q.stem && q.fullText) {
+    parts.push(`<div class="question-stem">${escapeHtml(q.fullText)}</div>`);
+  }
+
+  if (!parts.length) {
+    parts.push(`<p class="question-meta muted">Open PDF page ${q.pdfPage} in your Official Guide for the full question text.</p>`);
+  }
+
+  return parts.join('');
+}
+
 function renderQuestionCard(no) {
   const q = state.questions[no];
   const p = getQuestionProgress(no);
@@ -203,6 +241,7 @@ function renderQuestionCard(no) {
         · PDF p. ${q.pdfPage}
         ${q.explanationPage ? ` · Explanation p. ${q.explanationPage}` : ''}
       </p>
+      <div class="question-body">${formatQuestionBody(q)}</div>
       <div class="timer-row">
         <div class="timer-display ${running ? 'running' : ''} ${p.completed ? 'done' : ''}" data-timer-display="${no}">${formatMs(elapsed)}</div>
         <button class="btn btn-primary btn-sm timer-start" data-action="start" data-q="${no}" type="button">${running ? 'Pause' : p.elapsedMs ? 'Resume' : 'Start'}</button>
