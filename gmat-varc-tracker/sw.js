@@ -1,4 +1,4 @@
-const CACHE = 'gmat-varc-v2';
+const CACHE = 'gmat-varc-v3';
 
 const PRECACHE = [
   './',

@@ -8,6 +8,8 @@ from pathlib import Path
 
 from pypdf import PdfReader
 
+from text_cleanup import clean_option_text, clean_question_text, clean_stem_text
+
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 PDF_PATH = Path("/tmp/gdrive_test.pdf")
@@ -84,6 +86,7 @@ def extract_passages(text: str) -> dict[int, str]:
             continue
         passage = before[line_matches[-1].start():].strip()
         passage = re.split(r"Questions[\s\t]+\d{3}", passage)[0].strip()
+        passage = clean_question_text(passage)
         for qnum in range(first_q, last_q + 1):
             passages[qnum] = passage
     return passages
@@ -133,8 +136,8 @@ def extract_questions(text: str) -> dict[int, dict]:
         block = re.sub(r"^\d{3}\.\s+", "", block, count=1)
         stem, options = parse_options(block)
         extracted[num] = {
-            "stem": stem,
-            "options": options,
+            "stem": clean_stem_text(stem),
+            "options": {k: clean_option_text(v) for k, v in options.items()},
             "fullText": trim_question_block(block),
         }
     return extracted

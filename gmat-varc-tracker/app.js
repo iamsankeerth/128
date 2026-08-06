@@ -187,20 +187,30 @@ function formatQuestionBody(q) {
   const parts = [];
 
   if (q.passage) {
-    parts.push(`<div class="question-passage"><div class="content-label">Passage</div><div class="passage-text">${escapeHtml(q.passage)}</div></div>`);
+    parts.push(
+      `<div class="question-passage">` +
+        `<div class="content-label">Passage</div>` +
+        `<div class="passage-text">${escapeHtml(q.passage)}</div>` +
+      `</div>`
+    );
   }
 
   if (q.stem) {
-    parts.push(`<div class="question-stem">${escapeHtml(q.stem)}</div>`);
+    parts.push(
+      `<div class="question-prompt">` +
+        `<div class="content-label">Question</div>` +
+        `<div class="question-stem">${escapeHtml(q.stem)}</div>` +
+      `</div>`
+    );
   }
 
   const options = q.options || {};
   const letters = ['A', 'B', 'C', 'D', 'E'].filter((letter) => options[letter]);
   if (letters.length) {
     const items = letters
-      .map((letter) => `<li><span class="opt-letter">${letter}.</span> ${escapeHtml(options[letter])}</li>`)
+      .map((letter) => `<li><span class="opt-letter">${letter}.</span><span class="opt-text">${escapeHtml(options[letter])}</span></li>`)
       .join('');
-    parts.push(`<ol class="question-options">${items}</ol>`);
+    parts.push(`<div class="content-label options-label">Answer choices</div><ol class="question-options">${items}</ol>`);
   } else if (!q.stem && q.fullText) {
     parts.push(`<div class="question-stem">${escapeHtml(q.fullText)}</div>`);
   }
@@ -323,7 +333,7 @@ async function requestNotificationPermission() {
 async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return null;
   try {
-    const reg = await navigator.serviceWorker.register('./sw.js?v=2');
+    const reg = await navigator.serviceWorker.register('./sw.js?v=3');
     if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
     return reg;
   } catch (err) {
@@ -378,8 +388,8 @@ function openReminderDialog() {
 
 async function init() {
   const [questionsRes, planRes] = await Promise.all([
-    fetch('./data/questions.json?v=2'),
-    fetch('./data/daily-plan.json?v=2'),
+    fetch('./data/questions.json?v=3'),
+    fetch('./data/daily-plan.json?v=3'),
   ]);
 
   if (!questionsRes.ok || !planRes.ok) {

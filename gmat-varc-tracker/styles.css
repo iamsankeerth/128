@@ -285,21 +285,34 @@ body {
   margin-bottom: 14px;
 }
 
-.passage-text,
-.question-stem {
-  white-space: pre-wrap;
-  line-height: 1.65;
+.passage-text {
+  max-height: min(42vh, 320px);
+  overflow-y: auto;
+  padding-right: 4px;
+  line-height: 1.7;
   font-size: 0.95rem;
+  white-space: pre-wrap;
+}
+
+.question-prompt {
+  margin-bottom: 14px;
 }
 
 .question-stem {
-  margin-bottom: 12px;
-  font-weight: 500;
+  white-space: pre-wrap;
+  line-height: 1.65;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.options-label {
+  margin-bottom: 8px;
 }
 
 .question-options {
   list-style: none;
-  margin: 0;
+  margin: 0 0 4px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -310,12 +323,12 @@ body {
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  padding: 10px 12px;
+  padding: 12px 14px;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 10px;
-  line-height: 1.5;
-  font-size: 0.92rem;
+  line-height: 1.55;
+  font-size: 0.94rem;
 }
 
 .opt-letter {
@@ -323,6 +336,10 @@ body {
   color: var(--primary);
   min-width: 1.5rem;
   font-family: "JetBrains Mono", monospace;
+}
+
+.opt-text {
+  flex: 1;
 }
 
 .muted {
