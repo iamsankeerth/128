@@ -261,6 +261,11 @@ body {
 
 .question-body {
   margin-bottom: 16px;
+  min-height: 1rem;
+}
+
+.question-card .question-body:empty {
+  display: none;
 }
 
 .content-label {

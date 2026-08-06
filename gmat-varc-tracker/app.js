@@ -323,7 +323,9 @@ async function requestNotificationPermission() {
 async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return null;
   try {
-    return await navigator.serviceWorker.register('./sw.js');
+    const reg = await navigator.serviceWorker.register('./sw.js?v=2');
+    if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+    return reg;
   } catch (err) {
     console.warn('Service worker registration failed', err);
     return null;
@@ -376,9 +378,13 @@ function openReminderDialog() {
 
 async function init() {
   const [questionsRes, planRes] = await Promise.all([
-    fetch('./data/questions.json'),
-    fetch('./data/daily-plan.json'),
+    fetch('./data/questions.json?v=2'),
+    fetch('./data/daily-plan.json?v=2'),
   ]);
+
+  if (!questionsRes.ok || !planRes.ok) {
+    throw new Error('Could not load study data. Check your connection and refresh.');
+  }
 
   state.questions = await questionsRes.json();
   state.dailyPlan = await planRes.json();
