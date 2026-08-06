@@ -1,3 +1,10 @@
+import {
+  loadGithubSettings,
+  saveGithubSettings,
+  scheduleGithubSync,
+  syncToGitHub,
+} from './github-sync.js';
+
 const STORAGE_KEY = 'gmat-varc-progress-v1';
 const REMINDER_KEY = 'gmat-varc-reminder-v1';
 
@@ -7,6 +14,7 @@ const state = {
   dayMap: new Map(),
   progress: loadProgress(),
   reminder: loadReminder(),
+  github: loadGithubSettings(),
   selectedDate: null,
   activeTimer: null,
   tickInterval: null,
@@ -33,6 +41,15 @@ const els = {
   reminderEnabled: document.getElementById('reminderEnabled'),
   reminderStatus: document.getElementById('reminderStatus'),
   testReminder: document.getElementById('testReminder'),
+  githubBtn: document.getElementById('githubBtn'),
+  githubDialog: document.getElementById('githubDialog'),
+  githubForm: document.getElementById('githubForm'),
+  githubEnabled: document.getElementById('githubEnabled'),
+  githubToken: document.getElementById('githubToken'),
+  githubRepo: document.getElementById('githubRepo'),
+  githubBranch: document.getElementById('githubBranch'),
+  githubStatus: document.getElementById('githubStatus'),
+  testGithubSync: document.getElementById('testGithubSync'),
 };
 
 function loadProgress() {
@@ -76,6 +93,30 @@ function getQuestionProgress(no) {
 function setQuestionProgress(no, data) {
   state.progress.questions[String(no)] = { ...getQuestionProgress(no), ...data, lastUpdated: new Date().toISOString() };
   saveProgress();
+}
+
+function githubDeps() {
+  return {
+    dayMap: state.dayMap,
+    questions: state.questions,
+    getQuestionProgress,
+  };
+}
+
+function setGithubStatus(text, isError = false) {
+  if (!els.githubStatus) return;
+  els.githubStatus.textContent = text;
+  els.githubStatus.classList.toggle('status-error', isError);
+}
+
+function scheduleProgressSync(date = state.selectedDate) {
+  if (!date || !state.github.enabled) return;
+  scheduleGithubSync(date, githubDeps(), (result) => {
+    if (result?.ok) setGithubStatus(`Synced to GitHub: ${result.path}`);
+    else if (result?.reason && result.reason !== 'disabled' && result.reason !== 'empty') {
+      setGithubStatus(`GitHub sync failed: ${result.reason}`, true);
+    }
+  });
 }
 
 function formatMs(ms) {
@@ -311,7 +352,10 @@ function stopActiveTimer(save = true) {
   const { questionNo, startedAt } = state.activeTimer;
   const p = getQuestionProgress(questionNo);
   const elapsedMs = p.elapsedMs + (Date.now() - startedAt);
-  if (save) setQuestionProgress(questionNo, { elapsedMs });
+  if (save) {
+    setQuestionProgress(questionNo, { elapsedMs });
+    scheduleProgressSync(state.selectedDate);
+  }
   state.activeTimer = null;
 }
 
@@ -347,6 +391,7 @@ function selectAnswer(questionNo, letter) {
   const feedback = card?.querySelector('.answer-result');
   if (feedback) feedback.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   renderStats(state.selectedDate);
+  scheduleProgressSync(state.selectedDate);
 }
 
 function toggleComplete(questionNo) {
@@ -355,6 +400,7 @@ function toggleComplete(questionNo) {
   setQuestionProgress(questionNo, { completed: !p.completed });
   refreshQuestionCard(questionNo);
   renderStats(state.selectedDate);
+  scheduleProgressSync(state.selectedDate);
 }
 
 function handleQuestionAction(btn) {
@@ -401,7 +447,7 @@ async function requestNotificationPermission() {
 async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return null;
   try {
-    const reg = await navigator.serviceWorker.register('./sw.js?v=5');
+    const reg = await navigator.serviceWorker.register('./sw.js?v=6');
     if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
     return reg;
   } catch (err) {
@@ -440,6 +486,7 @@ function checkDailyReminder() {
     showNotification('GMAT VARC Study Reminder', count ? `You have ${count} questions scheduled today. Open the tracker and start!` : 'Time for your daily GMAT VARC practice!');
     state.reminder.lastFired = key;
     saveReminder();
+    scheduleProgressSync(todayIso());
   }
 }
 
@@ -454,10 +501,23 @@ function openReminderDialog() {
   els.reminderDialog.showModal();
 }
 
+function openGithubDialog() {
+  els.githubEnabled.checked = state.github.enabled;
+  els.githubRepo.value = state.github.repo || 'iamsankeerth/128';
+  els.githubBranch.value = state.github.branch || 'master';
+  els.githubToken.value = state.github.token || '';
+  setGithubStatus(
+    state.github.enabled && state.github.token
+      ? 'GitHub sync is on. Your answers are posted when you practice.'
+      : 'Enable sync and add a token to post your answers to GitHub automatically.',
+  );
+  els.githubDialog.showModal();
+}
+
 async function init() {
   const [questionsRes, planRes] = await Promise.all([
-    fetch('./data/questions.json?v=5'),
-    fetch('./data/daily-plan.json?v=5'),
+    fetch('./data/questions.json?v=6'),
+    fetch('./data/daily-plan.json?v=6'),
   ]);
 
   if (!questionsRes.ok || !planRes.ok) {
@@ -481,6 +541,34 @@ async function init() {
   els.nextDay.addEventListener('click', () => shiftDate(1));
   els.todayBtn.addEventListener('click', () => renderDay(getDefaultDate()));
   els.reminderBtn.addEventListener('click', openReminderDialog);
+  els.githubBtn.addEventListener('click', openGithubDialog);
+
+  els.testGithubSync.addEventListener('click', async () => {
+    const result = await syncToGitHub(state.selectedDate || todayIso(), githubDeps(), {
+      ...state.github,
+      enabled: true,
+      token: els.githubToken.value.trim(),
+      repo: els.githubRepo.value.trim(),
+      branch: els.githubBranch.value.trim() || 'master',
+    });
+    if (result.ok) setGithubStatus(`Test sync OK → ${result.path}`);
+    else setGithubStatus(`Test sync failed: ${result.reason}`, true);
+  });
+
+  els.githubForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    state.github = {
+      enabled: els.githubEnabled.checked,
+      token: els.githubToken.value.trim(),
+      repo: els.githubRepo.value.trim() || 'iamsankeerth/128',
+      branch: els.githubBranch.value.trim() || 'master',
+      pathPrefix: 'gmat-varc-tracker/progress',
+    };
+    saveGithubSettings(state.github);
+    setGithubStatus(state.github.enabled ? 'GitHub sync saved. Answers will post automatically.' : 'GitHub sync disabled.');
+    els.githubDialog.close();
+    if (state.github.enabled) scheduleProgressSync(state.selectedDate || todayIso());
+  });
 
   els.testReminder.addEventListener('click', async () => {
     const ok = await requestNotificationPermission();

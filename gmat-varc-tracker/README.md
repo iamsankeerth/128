@@ -63,3 +63,26 @@ Add these repository secrets in GitHub → Settings → Secrets:
 - `VERCEL_PROJECT_ID` — from Vercel project settings
 
 Pushes to `master` that change `gmat-varc-tracker/` will deploy automatically.
+
+## Daily answers on GitHub
+
+### Correct answer keys (automatic)
+
+A GitHub Actions workflow posts the **correct answers** for each study day to `answers/YYYY-MM-DD.md`:
+
+- **Workflow:** `.github/workflows/daily-answers.yml`
+- **Schedule:** 00:30 UTC daily (~6:00 AM IST)
+- **Requires:** Workflow merged to your default branch (`master`)
+
+You can also run it manually: GitHub → Actions → **Daily GMAT Answers** → Run workflow.
+
+### Your practice answers (optional sync)
+
+To post **your selected answers** to GitHub when you practice:
+
+1. Create a [GitHub personal access token](https://github.com/settings/tokens) with `repo` scope
+2. In the tracker, click **GitHub** in the header
+3. Paste the token, confirm repo `iamsankeerth/128` and branch `master`
+4. Enable **automatic GitHub sync**
+
+Your answers are saved to `progress/YYYY-MM-DD.json` after each question (debounced ~2.5s).

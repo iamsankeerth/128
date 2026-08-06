@@ -1,10 +1,11 @@
-const CACHE = 'gmat-varc-v5';
+const CACHE = 'gmat-varc-v6';
 
 const PRECACHE = [
   './',
   './index.html',
   './styles.css',
   './app.js',
+  './github-sync.js',
   './manifest.json',
   './icon.svg',
   './data/questions.json',
