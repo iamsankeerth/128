@@ -1,0 +1,52 @@
+name: Daily GMAT Answers
+
+on:
+  schedule:
+    # 00:30 UTC daily (~6:00 AM IST)
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Study date (YYYY-MM-DD). Leave empty for today.'
+        required: false
+        type: string
+      generate_all:
+        description: 'Generate answer keys for every day in the plan'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  post-daily-answers:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gmat-varc-tracker
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate answer key markdown
+        run: |
+          if [ "${{ inputs.generate_all }}" = "true" ]; then
+            python3 scripts/generate_daily_answers.py --all --force
+          elif [ -n "${{ inputs.date }}" ]; then
+            python3 scripts/generate_daily_answers.py --date "${{ inputs.date }}" --force
+          else
+            python3 scripts/generate_daily_answers.py --force
+          fi
+
+      - name: Commit and push daily answers
+        run: |
+          cd ..
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- gmat-varc-tracker/answers/; then
+            echo "No answer file changes to commit."
+            exit 0
+          fi
+          git add gmat-varc-tracker/answers/
+          git commit -m "Post GMAT VARC answers for $(date -u +%Y-%m-%d)"
+          git push
