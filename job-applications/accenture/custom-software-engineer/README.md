@@ -8,6 +8,14 @@
 | **Score** | 4.1/5 — Apply |
 | **Posting** | https://www.accenture.com/in-en/careers/jobdetails?id=ATCI-5704900-S2062039_en&title=Custom+Software+Engineer |
 
+## Profile links (in resume PDF)
+
+| Link | URL |
+|------|-----|
+| LinkedIn | https://linkedin.com/in/sankeerth-masetty-76674a238 |
+| GitHub | https://github.com/iamsankeerth |
+| Major project (Bridging Learning Gaps) | https://github.com/iamsankeerth/Major-Project |
+
 ## Files
 
 | Document | GitHub (view) | Direct download |
