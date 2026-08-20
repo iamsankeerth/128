@@ -6,3 +6,4 @@ Application materials stored in this repo with role-based filenames and direct G
 |---------|------|-----------|--------|
 | Accenture | Custom Software Engineer | Sankeerth Masetty | [accenture/custom-software-engineer/](accenture/custom-software-engineer/) |
 | Accenture | Custom Software Engineer | Neela Adarsh | [accenture/custom-software-engineer-neela-adarsh/](accenture/custom-software-engineer-neela-adarsh/) |
+| NXTINNOV | AI Engineer | Sankeerth Masetty | [nxtinnov/ai-engineer-sankeerth/](nxtinnov/ai-engineer-sankeerth/) |
