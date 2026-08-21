@@ -1,7 +1,11 @@
 # Sankeerth Masetty
 
 **sankeerthmvsr@gmail.com** | **+91-6309884076** | [LinkedIn](https://www.linkedin.com/in/sankeerth-masetty-76674a238)  
-Senior Undergraduate, B.E. Information Technology | MVSR Engineering College
+Senior Undergraduate, B.E. Information Technology | MVSR Engineering College | **Open to relocation to Gurugram for hybrid work**
+
+## Professional Summary
+
+Final-year B.E. Information Technology student with hands-on experience in Python, SQL, machine learning, and generative AI. Fine-tuned a Small Language Model on a 35,000+ record dataset during an SDE internship; supported leadership decision-making through market research, trend analysis, and business-facing reports. Eager to apply analytical problem-solving and data-driven insights to analytics and risk management at American Express.
 
 ---
 
@@ -19,12 +23,12 @@ Senior Undergraduate, B.E. Information Technology | MVSR Engineering College
 
 **SDE Intern** — Samyama.ai | *Nov 2025 – Jan 2026*
 - Built and fine-tuned a domain-specific Small Language Model (SLM) in Python using Transformers, applying structured JSON outputs and evidence-based frameworks (CBT, Polyvagal Theory).
-- Generated and processed a 35,506-record synthetic dataset for model training, ensuring schema compliance and data quality for downstream analysis.
+- Generated and processed a 35,506-record synthetic dataset for model training; performed data analysis and quality checks to ensure schema compliance and reliable downstream insights.
 - Evaluated model performance trade-offs by comparing SLM vs. generic LLM architectures, reducing inference latency and operational cost.
 
 **Founder's Office Intern** — Poditivity Connect | *Oct 2024 – Mar 2025*
-- Conducted research and analysis on market trends, competitive landscapes, and business opportunities to support strategic decision-making.
-- Prepared reports and presentations for senior leadership using Microsoft Excel and PowerPoint on growth strategies and emerging industry trends.
+- Conducted data analysis on market trends, competitive landscapes, and business opportunities; distilled insights to support strategic decision-making and business recommendations.
+- Prepared analytical reports and presentations for senior leadership using Microsoft Excel and PowerPoint, translating trends and insights into actionable growth recommendations.
 - Coordinated cross-functional teams to align on company initiatives and streamline information flow across departments.
 
 **Integration Engineer Intern** — CloudSire Solutions LLP | *Nov 2023 – May 2024*
@@ -32,7 +36,7 @@ Senior Undergraduate, B.E. Information Technology | MVSR Engineering College
 - Integrated Botsonic chatbot with Jira API for automated ticket creation; built real-time email-to-ticket pipelines across Outlook, ServiceNow, and Slack.
 
 **Head of Socials & Growth** — Poditivity Connect | *Dec 2024 – May 2025*
-- Drove user acquisition and brand awareness through targeted digital campaigns; increased social media engagement by **40%** via data-informed content strategy.
+- Analyzed engagement trends and applied data-informed insights to targeted digital campaigns; increased social media engagement by **40%**.
 
 ---
 
@@ -57,12 +61,14 @@ Senior Undergraduate, B.E. Information Technology | MVSR Engineering College
 
 **Languages & Tools:** Python, SQL, Jupyter Notebook, FastAPI, Postman, Celigo, Digibee  
 **Technologies:** Machine Learning, Generative AI / LLMs (model fine-tuning), Data Science, Front-End Development  
+**Generative AI Tools:** ChatGPT, Microsoft Copilot, Google Gemini  
 **Productivity:** Microsoft Excel, Microsoft PowerPoint  
 **Also familiar with:** C, Java, React, Node.js, Bootstrap CSS
 
 <!-- Resume notes (do not include in application):
 - Excel/PowerPoint: Added per user confirmation; lightweight mention in Founder's Office reporting/presentation work.
-- ChatGPT/Copilot/Gemini: NOT on source resume. LLM experience honestly framed via Samyama.ai SLM work only.
+- ChatGPT/Copilot/Gemini: Added per user confirmation of heavy daily use alongside Samyama.ai SLM fine-tuning work.
+- Relocation: Open to Gurugram for hybrid work per user confirmation.
 -->
 
 ---
@@ -88,13 +94,17 @@ Senior Undergraduate, B.E. Information Technology | MVSR Engineering College
 ## Skills added per user confirmation
 
 - **Microsoft Excel / PowerPoint** — added to Technical Skills (Productivity) and lightly referenced in Founder's Office reporting/presentation bullet; no major project claims beyond reports and presentations.
+- **ChatGPT, Microsoft Copilot, Google Gemini** — added to Technical Skills (Generative AI Tools) per user confirmation of heavy daily use.
+- **Relocation to Gurugram** — stated in header; user confirmed willingness for hybrid work.
 
-## Skills intentionally NOT added
+## JD-language reframes (honest)
 
-- **ChatGPT, Copilot, Gemini** — not listed on source resume; LLM familiarity expressed only through documented SLM fine-tuning work.
+- Founder's Office bullets — elevated trends, insights, data analysis, and business recommendations language aligned to existing market research and reporting work.
+- Samyama dataset bullet — added data analysis / insights framing without overstating scope.
+- Head of Socials bullet — reframed around engagement trend analysis and data-informed insights.
 
 ---
 
-## Optional: Professional Summary (AmEx Application Form)
+## Application form copy: Professional Summary
 
-> Final-year B.E. Information Technology student (CPI 7.42) with hands-on experience in Python, SQL, machine learning, and generative AI through an SDE internship where I fine-tuned a Small Language Model on a 35,000+ record dataset. I have supported business decision-making through market research, competitive analysis, and leadership-facing reports at a startup founder's office, and improved engagement metrics by 40% in a growth role. I am eager to apply my analytical problem-solving skills, curiosity for data-driven insights, and LLM experience to the American Express Apprentice program in Analytics & Risk Management at Gurugram.
+> Final-year B.E. Information Technology student (CPI 7.42) with hands-on experience in Python, SQL, machine learning, and generative AI through an SDE internship where I fine-tuned a Small Language Model on a 35,000+ record dataset. I have supported business decision-making through market research, competitive analysis, and leadership-facing reports at a startup founder's office, and improved engagement metrics by 40% in a growth role. I am eager to apply my analytical problem-solving skills, curiosity for data-driven insights, and LLM experience to the American Express Apprentice program in Analytics & Risk Management at Gurugram. Open to relocation to Gurugram for hybrid work.
