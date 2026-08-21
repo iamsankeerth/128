@@ -1,7 +1,3 @@
-
-> match:amex
-> node jd-skill-gap.mjs jds/amex-apprentice.md cv-amex-apprentice.md
-
 # Match Report: amex-apprentice.md ↔ cv-amex-apprentice.md
 
 ## Overall Match
