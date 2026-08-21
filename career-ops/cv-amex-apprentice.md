@@ -24,7 +24,7 @@ Senior Undergraduate, B.E. Information Technology | MVSR Engineering College
 
 **Founder's Office Intern** — Poditivity Connect | *Oct 2024 – Mar 2025*
 - Conducted research and analysis on market trends, competitive landscapes, and business opportunities to support strategic decision-making.
-- Prepared reports and presentations for senior leadership on growth strategies and emerging industry trends.
+- Prepared reports and presentations for senior leadership using Microsoft Excel and PowerPoint on growth strategies and emerging industry trends.
 - Coordinated cross-functional teams to align on company initiatives and streamline information flow across departments.
 
 **Integration Engineer Intern** — CloudSire Solutions LLP | *Nov 2023 – May 2024*
@@ -57,10 +57,11 @@ Senior Undergraduate, B.E. Information Technology | MVSR Engineering College
 
 **Languages & Tools:** Python, SQL, Jupyter Notebook, FastAPI, Postman, Celigo, Digibee  
 **Technologies:** Machine Learning, Generative AI / LLMs (model fine-tuning), Data Science, Front-End Development  
+**Productivity:** Microsoft Excel, Microsoft PowerPoint  
 **Also familiar with:** C, Java, React, Node.js, Bootstrap CSS
 
 <!-- Resume notes (do not include in application):
-- Excel/PowerPoint: NOT listed on source resume. "Reports and presentations" reframed from Founder's Office role; no Excel/PowerPoint claim added.
+- Excel/PowerPoint: Added per user confirmation; lightweight mention in Founder's Office reporting/presentation work.
 - ChatGPT/Copilot/Gemini: NOT on source resume. LLM experience honestly framed via Samyama.ai SLM work only.
 -->
 
@@ -75,7 +76,7 @@ Senior Undergraduate, B.E. Information Technology | MVSR Engineering College
 | 1 | "Architected and trained a domain-specific SLM… simulating complex interpersonal scenarios" | "Built and fine-tuned a domain-specific SLM… applying structured JSON outputs and evidence-based frameworks" | Highlights data structure, Python/Transformers, and LLM work aligned to Gen AI & analytics JD requirements without inventing tool names. |
 | 2 | "Generated and processed a high-fidelity synthetic dataset of 35,506 unique examples" | "Generated and processed a 35,506-record synthetic dataset… ensuring schema compliance and data quality" | Reframes dataset work toward data management and quality — core analytics apprenticeship themes. |
 | 3 | "Optimized system performance by shifting to SLM architecture, reducing latency and costs" | "Evaluated model performance trade-offs… reducing inference latency and operational cost" | Positions as analytical evaluation / business trade-off thinking (risk & efficiency). |
-| 4 | Founder's Office: "Prepared comprehensive reports and presentations for senior leadership" | Kept and elevated under dedicated analytics-oriented bullets | Directly maps to JD: reports, presentations, business recommendations. |
+| 4 | Founder's Office: "Prepared comprehensive reports and presentations for senior leadership" | Kept and elevated under dedicated analytics-oriented bullets; added Microsoft Excel and PowerPoint for reports/presentations per user confirmation | Directly maps to JD: reports, presentations, business recommendations. |
 | 5 | Salesforce lead extraction "based on criteria" + Mailchimp import | "Automated lead extraction from Salesforce based on defined criteria; transformed and imported records" | Emphasizes data extraction, transformation, and workflow — SQL/analytics-adjacent without claiming dashboards. |
 
 ## What was condensed or omitted (still on full resume)
@@ -84,9 +85,12 @@ Senior Undergraduate, B.E. Information Technology | MVSR Engineering College
 - **Front-end Engineer Intern, RCI** — omitted for one-page fit; less aligned to analytics/risk role.
 - **Brain-Controlled Robotic Arm** — omitted for space; ML project coverage retained via major project and MalFoyle.
 
+## Skills added per user confirmation
+
+- **Microsoft Excel / PowerPoint** — added to Technical Skills (Productivity) and lightly referenced in Founder's Office reporting/presentation bullet; no major project claims beyond reports and presentations.
+
 ## Skills intentionally NOT added
 
-- **Microsoft Excel / PowerPoint** — not verifiable on source resume; omitted rather than invented. Founder's Office "reports and presentations" retained as honest experience.
 - **ChatGPT, Copilot, Gemini** — not listed on source resume; LLM familiarity expressed only through documented SLM fine-tuning work.
 
 ---
