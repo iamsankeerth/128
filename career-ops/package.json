@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "pdf": "node generate-pdf.mjs",
-    "pdf:amex": "node generate-pdf.mjs cv-amex-apprentice.md output/cv-amex-apprentice.pdf"
+    "pdf:amex": "node generate-pdf.mjs cv-amex-apprentice.md output/cv-amex-apprentice.pdf",
+    "pdf:cover-letter": "node generate-cover-letter-pdf.mjs cover-letter-amex-apprentice.md output/cover-letter-amex-apprentice.pdf",
+    "match:amex": "node jd-skill-gap.mjs jds/amex-apprentice.md cv-amex-apprentice.md"
   },
   "dependencies": {
     "marked": "^15.0.7",
