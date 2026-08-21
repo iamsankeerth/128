@@ -1,0 +1,18 @@
+{
+  "name": "career-ops",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "pdf": "node generate-pdf.mjs",
+    "pdf:amex": "node generate-pdf.mjs cv-amex-apprentice.md output/cv-amex-apprentice.pdf",
+    "pdf:cover-letter": "node generate-cover-letter-pdf.mjs cover-letter-amex-apprentice.md output/cover-letter-amex-apprentice.pdf",
+    "match:amex": "node jd-skill-gap.mjs jds/amex-apprentice.md cv-amex-apprentice.md",
+    "pdf:thermofisher": "node generate-pdf.mjs cv-thermofisher-swe1.md output/cv-thermofisher-swe1.pdf",
+    "pdf:cover-letter:thermofisher": "node generate-cover-letter-pdf.mjs cover-letter-thermofisher-swe1.md output/cover-letter-thermofisher-swe1.pdf",
+    "match:thermofisher": "node jd-skill-gap.mjs jds/thermofisher-swe1.md cv-thermofisher-swe1.md --out match-report-thermofisher-swe1.md"
+  },
+  "dependencies": {
+    "marked": "^15.0.7",
+    "playwright": "^1.51.0"
+  }
+}
