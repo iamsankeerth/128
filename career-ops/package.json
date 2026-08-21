@@ -1,0 +1,13 @@
+{
+  "name": "career-ops",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "pdf": "node generate-pdf.mjs",
+    "pdf:amex": "node generate-pdf.mjs cv-amex-apprentice.md output/cv-amex-apprentice.pdf"
+  },
+  "dependencies": {
+    "marked": "^15.0.7",
+    "playwright": "^1.51.0"
+  }
+}
