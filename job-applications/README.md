@@ -2,7 +2,8 @@
 
 Application materials stored in this repo with role-based filenames and direct GitHub links.
 
-| Company | Role | Candidate | Folder |
-|---------|------|-----------|--------|
-| Accenture | Custom Software Engineer | Sankeerth Masetty | [accenture/custom-software-engineer/](accenture/custom-software-engineer/) |
-| Accenture | Custom Software Engineer | Neela Adarsh | [accenture/custom-software-engineer-neela-adarsh/](accenture/custom-software-engineer-neela-adarsh/) |
+| Company | Role | Candidate | Folder | Score |
+|---------|------|-----------|--------|-------|
+| Accenture | Custom Software Engineer | Sankeerth Masetty | [accenture/custom-software-engineer/](accenture/custom-software-engineer/) | 4.1/5 |
+| Accenture | Custom Software Engineer | Neela Adarsh | [accenture/custom-software-engineer-neela-adarsh/](accenture/custom-software-engineer-neela-adarsh/) | 4.0/5 |
+| Huvo AI | Forward Deployed Engineer | Sankeerth Masetty | [huvo-ai/forward-deployed-engineer-sankeerth/](huvo-ai/forward-deployed-engineer-sankeerth/) | 4.1/5 Apply |
