@@ -11,5 +11,4 @@ Application materials stored in this repo with role-based filenames and direct G
 | FactWise | Junior Backend Engineer | Sankeerth Masetty | [factwise/junior-backend-engineer-sankeerth/](factwise/junior-backend-engineer-sankeerth/) | 4.0/5 After Huvo |
 | Navtech | Software Engineer | Sankeerth Masetty | [navtech/software-engineer-sankeerth/](navtech/software-engineer-sankeerth/) | 3.4/5* |
 | POOLit | Front-end Developer | Sankeerth Masetty | [poolit/frontend-developer-sankeerth/](poolit/frontend-developer-sankeerth/) | 3.6/5 After Huvo |
-
-\*Skills 4.2/5; overall lowered for ₹3–5L comp. Strong Hyderabad + DSLM alignment.
+| DoorDash | Role discovery (no tailored PDFs) | Sankeerth Masetty | [doordash/](doordash/) | Limited India fit |
