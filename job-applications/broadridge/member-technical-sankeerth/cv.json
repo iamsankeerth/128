@@ -1,0 +1,113 @@
+{
+  "lang": "en",
+  "page_format": "a4",
+  "candidate": {
+    "name": "Sankeerth Masetty",
+    "phone": "+91-6309884076",
+    "email": "sankeerthmvsr@gmail.com",
+    "linkedin": {
+      "url": "https://linkedin.com/in/sankeerth-masetty-76674a238",
+      "display": "linkedin.com/in/sankeerth-masetty-76674a238"
+    },
+    "github": {
+      "url": "https://github.com/iamsankeerth",
+      "display": "github.com/iamsankeerth"
+    },
+    "location": "Hyderabad, Telangana, India"
+  },
+  "summary": "B.E. Information Technology graduate (2025) based in Hyderabad with front-end software development experience in ReactJS, JavaScript, Node.js, HTML5, CSS3, and Bootstrap. Built responsive web interfaces and real-time features for a secure intranet platform at RCI; integrated REST APIs across enterprise systems at CloudSire. Comfortable writing clean, maintainable code, participating in code reviews, unit testing, debugging, and documenting technical workflows. Strong foundation in OOP, data structures, and SQL/RDBMS from coursework and project work.",
+  "competencies": [
+    "ReactJS & JavaScript",
+    "Node.js & REST APIs",
+    "HTML5, CSS3 & Bootstrap",
+    "OOP & Data Structures",
+    "SQL & Relational Databases",
+    "SDLC & Unit Testing",
+    "Code Reviews & Documentation",
+    "Agile Team Collaboration"
+  ],
+  "experience": [
+    {
+      "company": "RCI (Research Center Imarat)",
+      "role": "Front-end Engineer Intern",
+      "location": "Hyderabad",
+      "dates": "Apr 2023 – Oct 2023",
+      "bullets": [
+        "Developed and enhanced front-end features with HTML5, CSS3, JavaScript, and Bootstrap for a secure intranet collaboration platform.",
+        "Built real-time chat, request management, and two-factor authentication flows; participated in testing, debugging, and deployment support.",
+        "Collaborated with team members to deliver maintainable, reusable code aligned to business requirements and code review feedback."
+      ]
+    },
+    {
+      "company": "CloudSire Solutions LLP",
+      "role": "Integration Engineer Intern",
+      "location": "Hyderabad",
+      "dates": "Nov 2023 – May 2024",
+      "bullets": [
+        "Integrated front-end workflows with REST APIs across Jira, Salesforce, ServiceNow, and Slack; processed ~100 tickets weekly.",
+        "Debugged cross-system issues, documented integration workflows, and reduced manual support handoffs by 45%."
+      ]
+    },
+    {
+      "company": "Samyama.ai",
+      "role": "SDE Intern",
+      "location": "Hyderabad",
+      "dates": "Nov 2025 – Jan 2026",
+      "bullets": [
+        "Built custom Python software components with structured data validation; reduced model response latency by 2.3 seconds through debugging and iterative development.",
+        "Participated in cross-functional code reviews, defect resolution, and progress updates with team leads."
+      ]
+    },
+    {
+      "company": "Poditivity Connect",
+      "role": "Founder's Office & Growth to General Manager",
+      "location": "Hyderabad",
+      "dates": "Oct 2024 – July 2025",
+      "bullets": [
+        "Led a 14-person cross-functional team; coordinated product, content, and growth initiatives with clear stakeholder communication."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Bridging Learning Gaps",
+      "tech": "JavaScript, HTML, CSS, Flask, Python",
+      "description": "Full-stack web application with a live browser UI for real-time computer vision inference — 93.7% accuracy; built and tested responsive front-end flows with Python backend integration."
+    },
+    {
+      "name": "Next.js Web Applications",
+      "tech": "Next.js, React, JavaScript, HTML5, CSS3",
+      "description": "Built and maintained React/Next.js web interfaces with component-based architecture, client-side routing, and API-backed features."
+    }
+  ],
+  "education": [
+    {
+      "title": "B.E. in Information Technology",
+      "org": "MVSR Engineering College, Hyderabad",
+      "year": "2021 – 2025",
+      "description": "Coursework: OOP, DSA, web technologies, databases, software engineering."
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Complete AI, Machine Learning & Data Science Bootcamp",
+      "org": "Udemy (Andrei Neagoie & Daniel Bourke)",
+      "year": ""
+    }
+  ],
+  "awards": [
+    {
+      "title": "2nd Prize, Project Expo 2025 — Bridging Learning Gaps",
+      "org": "RDC × IIC, MVSREC",
+      "year": "2025"
+    }
+  ],
+  "skills": [
+    { "category": "Languages", "items": "JavaScript, Java, Python, SQL" },
+    { "category": "Front-end", "items": "ReactJS, Node.js, HTML5, CSS3, Bootstrap, responsive UI" },
+    { "category": "Back-end & APIs", "items": "REST APIs, Django, Flask, API integration" },
+    { "category": "Databases", "items": "SQL, relational databases (RDBMS), MySQL" },
+    { "category": "Engineering", "items": "OOP, data structures, unit testing, debugging, code reviews, documentation, Git, GitHub" },
+    { "category": "Tools", "items": "Postman, Jira, VS Code" }
+  ]
+}
